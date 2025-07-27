@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Prevent white flash during loading */
+
+html,
+body {
+    background-color: #0e0e0e;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    width: 100vw;
+}
+
+@keyframes gradientShift {
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.animated-border {
+    position: relative;
+    background: black;
+    border-radius: 9999px;
+    padding: 2px;
+}
+
+.animated-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    padding: 2px;
+    background: linear-gradient(45deg, #4cdef5, #1b7bb3, #1e3a8a, #4cdef5);
+    background-size: 400% 400%;
+    animation: gradientShift 3s ease infinite;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+.animated-border>* {
+    padding: 12px 24px;
+    border-radius: 9999px;
+    background: black;
+    position: relative;
+    z-index: 1;
+}
+
+
+/* Additional utility classes */
+
+.black-gradient {
+    background: #000000;
+    background: -webkit-linear-gradient( to right, #434343, #000000);
+    background: linear-gradient( to right, #434343, #000000);
+}
+
+.green-pink-gradient {
+    background: "#00cea8";
+    background: linear-gradient(90.13deg, #00cea8 1.9%, #bf61ff 97.5%);
+    background: -webkit-linear-gradient(-90.13deg, #00cea8 1.9%, #bf61ff 97.5%);
+}
+
+.orange-text-gradient {
+    background: #f12711;
+    background: -webkit-linear-gradient(to top, #f12711, #f5af19);
+    background: linear-gradient(to top, #f12711, #f5af19);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.green-text-gradient {
+    background: #11998e;
+    background: -webkit-linear-gradient(to top, #11998e, #38ef7d);
+    background: linear-gradient(to top, #11998e, #38ef7d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.blue-text-gradient {
+    background: #56ccf2;
+    background: -webkit-linear-gradient(to top, #2f80ed, #56ccf2);
+    background: linear-gradient(to top, #2f80ed, #56ccf2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.pink-text-gradient {
+    background: #ec008c;
+    background: -webkit-linear-gradient(to top, #ec008c, #fc6767);
+    background: linear-gradient(to top, #ec008c, #fc6767);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.sidebar {
+    -webkit-animation: slide-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    animation: slide-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@-webkit-keyframes slide-top {
+    0% {
+        -webkit-transform: translateY(100px);
+        transform: translateY(100px);
+    }
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+@keyframes slide-top {
+    0% {
+        -webkit-transform: translateY(100px);
+        transform: translateY(100px);
+    }
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+
+/* Custom scrollbar */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0e0e0e;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #4cdef5;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #1b7bb3;
+}
