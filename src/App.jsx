@@ -1,7 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { About, Contact, Experience, Hero, Navbar, Tech, Works, StarsCanvas } from "./components";
+import { About, Contact, Experience, Hero, Navbar, Profile, Tech, Works, StarsCanvas } from "./components";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 
@@ -52,9 +52,10 @@ const App = () => {
         <Hero />
         <div className="bg-[#0e0e0e] relative z-0 px-4">
           <About />
-          <Experience />
+          <Profile />
         </div>
         <div className="bg-[#1a1a1a] relative z-0 px-4">
+          <Experience />
           <Tech />
           <Works />
         </div>
