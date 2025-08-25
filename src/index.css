@@ -13,6 +13,13 @@ body {
     width: 100vw;
 }
 
+
+/* Light theme root hook */
+
+.theme-light body {
+    background-color: #F7F3E9;
+}
+
 @keyframes gradientShift {
     0%,
     100% {
@@ -141,11 +148,19 @@ body {
     background: #0e0e0e;
 }
 
+.theme-light ::-webkit-scrollbar-track {
+    background: #F7F3E9;
+}
+
 ::-webkit-scrollbar-thumb {
     background: #4cdef5;
     border-radius: 4px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: #1b7bb3;
+.theme-light ::-webkit-scrollbar-thumb {
+    background: #0FA3B1;
+}
+
+.theme-light ::-webkit-scrollbar-thumb:hover {
+    background: #9CAF88;
 }

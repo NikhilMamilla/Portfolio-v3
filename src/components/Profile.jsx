@@ -5,7 +5,8 @@ import { SectionWrapper } from "../hoc";
 import { textVariant, fadeIn } from "../utils/motion";
 import { FaMapMarkerAlt, FaCalendarAlt } from 'react-icons/fa';
 
-const Profile = () => {
+const Profile = ({ theme = "dark" }) => {
+  const isLight = theme === "light";
   const [activeTab, setActiveTab] = useState("education");
 
   const tabs = [
@@ -98,7 +99,7 @@ const Profile = () => {
       <motion.div
         key={index}
         variants={fadeIn("up", "spring", index * 0.2, 0.75)}
-        className="relative flex flex-col p-4 sm:p-6 rounded-lg shadow-lg bg-[#1a1a1a] mb-6 w-full max-w-sm mx-auto"
+        className={`relative flex flex-col p-4 sm:p-6 rounded-lg shadow-lg mb-6 w-full max-w-sm mx-auto ${isLight ? "bg-[#fff5f2] border border-[#e2e8f0]" : "bg-[#1a1a1a]"}`}
       >
         {/* Status pill - only for education */}
         {hasStatus && (
@@ -109,18 +110,18 @@ const Profile = () => {
 
         {/* Content with proper spacing */}
         <div className={hasStatus ? "mt-8" : "mt-2"}>
-          <h3 className={`text-white text-lg sm:text-xl font-bold mb-2 ${hasStatus ? "pr-16" : ""}`}>
+          <h3 className={`${isLight ? "text-[#4a4a4a]" : "text-white"} text-lg sm:text-xl font-bold mb-2 ${hasStatus ? "pr-16" : ""}`}>
             {item.title}
           </h3>
-          <p className="text-neutral-400 text-sm sm:text-base mb-3">
+          <p className={`${isLight ? "text-[#6b9080]" : "text-neutral-400"} text-sm sm:text-base mb-3`}>
             {item.type}
           </p>
-          <div className="flex items-center text-neutral-300 text-sm mb-2">
-            <FaMapMarkerAlt className="mr-2 text-[#4cdef5] flex-shrink-0" />
+          <div className={`flex items-center text-sm mb-2 ${isLight ? "text-[#6b9080]" : "text-neutral-300"}`}>
+            <FaMapMarkerAlt className={`mr-2 flex-shrink-0 ${isLight ? "text-[#0FA3B1]" : "text-[#4cdef5]"}`} />
             <span className="text-xs sm:text-sm">{item.institution}</span>
           </div>
-          <div className="flex items-center text-[#4cdef5] text-sm font-medium">
-            <FaCalendarAlt className="mr-2 text-[#4cdef5] flex-shrink-0" />
+          <div className={`flex items-center text-sm font-medium ${isLight ? "text-[#0FA3B1]" : "text-[#4cdef5]"}`}>
+            <FaCalendarAlt className={`mr-2 flex-shrink-0 ${isLight ? "text-[#0FA3B1]" : "text-[#4cdef5]"}`} />
             <span className="text-xs sm:text-sm">{item.dates}</span>
           </div>
         </div>
@@ -139,7 +140,7 @@ const Profile = () => {
         className="relative flex items-center justify-center mb-16"
       >
         {/* Timeline dot */}
-        <div className="absolute z-10 w-4 h-4 bg-[#4cdef5] rounded-full shadow-lg shadow-[#4cdef5]/50"></div>
+        <div className={`absolute z-10 w-4 h-4 rounded-full shadow-lg ${isLight ? "bg-[#0FA3B1] shadow-[#0FA3B1]/50" : "bg-[#4cdef5] shadow-[#4cdef5]/50"}`}></div>
         
         {/* Content - Desktop: alternating left/right positioning */}
         <div className={`w-full max-w-md 
@@ -149,13 +150,13 @@ const Profile = () => {
           /* Mobile: always centered */
           lg:${isLeft ? 'pr-8' : 'pl-8'}
         `}>
-          <h3 className="text-lg lg:text-xl font-semibold text-white mb-2">
+          <h3 className={`text-lg lg:text-xl font-semibold mb-2 ${isLight ? "text-[#4a4a4a]" : "text-white"}`}>
             {item.title}
           </h3>
-          <p className="text-neutral-300 mb-1 text-sm lg:text-base">
+          <p className={`${isLight ? "text-[#6b9080]" : "text-neutral-300"} mb-1 text-sm lg:text-base`}>
             {item.institution}
           </p>
-          <p className="text-[#4cdef5] font-medium text-sm lg:text-base">
+          <p className={`font-medium text-sm lg:text-base ${isLight ? "text-[#0FA3B1]" : "text-[#4cdef5]"}`}>
             {item.dates}
           </p>
         </div>
@@ -166,9 +167,9 @@ const Profile = () => {
   return (
     <>
       <motion.div variants={textVariant()}>
-        <p className={`${styles.sectionSubText} text-center`}>My Journey</p>
-        <h2 className={`${styles.sectionHeadText} text-center`}>Profile.</h2>
-        <p className="mt-3 text-neutral-300 text-[17px] max-w-3xl leading-[30px] text-center mx-auto px-4">
+        <p className={`${styles.sectionSubText} text-center ${isLight ? "!text-[#9CAF88]" : ""}`}>My Journey</p>
+        <h2 className={`${styles.sectionHeadText} text-center ${isLight ? "!text-[#4a4a4a]" : ""}`}>Profile.</h2>
+        <p className={`mt-3 text-[17px] max-w-3xl leading-[30px] text-center mx-auto px-4 ${isLight ? "text-[#4a4a4a]" : "text-neutral-300"}`}>
           My Academic & Professional journey showcasing my educational background, certifications, and key accomplishments.
         </p>
       </motion.div>
@@ -182,8 +183,12 @@ const Profile = () => {
               onClick={() => setActiveTab(tab.id)}
               className={`flex-1 px-3 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm lg:text-base font-medium transition-all duration-300 rounded-md ${
                 activeTab === tab.id
-                  ? "bg-[#4cdef5] text-black shadow-lg shadow-[#4cdef5]/30"
-                  : "bg-[#0e0e0e] text-neutral-300 border border-[#4cdef5]/20 hover:bg-[#1a1a1a] hover:border-[#4cdef5]/40"
+                  ? isLight
+                    ? "bg-[#0FA3B1] text-white shadow-lg shadow-[rgba(15,163,177,0.3)]"
+                    : "bg-[#4cdef5] text-black shadow-lg shadow-[#4cdef5]/30"
+                  : isLight
+                    ? "bg-[#fff5f2] text-[#6b9080] border border-[#0FA3B1]/20 hover:bg-[#e2e8f0] hover:border-[#0FA3B1]/40"
+                    : "bg-[#0e0e0e] text-neutral-300 border border-[#4cdef5]/20 hover:bg-[#1a1a1a] hover:border-[#4cdef5]/40"
               }`}
             >
               {tab.label}
@@ -202,7 +207,7 @@ const Profile = () => {
       {/* Desktop: Timeline Layout */}
       <div className="hidden lg:block relative px-4">
         {/* Vertical timeline line */}
-        <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-[#4cdef5] transform -translate-x-1/2"></div>
+        <div className={`absolute left-1/2 top-0 bottom-0 w-0.5 transform -translate-x-1/2 ${isLight ? "bg-[#0FA3B1]" : "bg-[#4cdef5]"}`}></div>
         
         {/* Timeline items */}
         <div className="relative">

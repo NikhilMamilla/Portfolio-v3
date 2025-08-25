@@ -7,6 +7,15 @@ import Loader from "./components/Loader";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== "undefined") {
+      const stored = window.localStorage.getItem("theme");
+      if (stored === "light" || stored === "dark") return stored;
+    }
+    return "dark";
+  });
+
+  const isLight = theme === "light";
 
   useEffect(() => {
     // Check if this is a page refresh
@@ -28,14 +37,28 @@ const App = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem("theme", theme);
+    }
+    if (typeof document !== "undefined") {
+      const root = document.documentElement;
+      if (theme === "light") {
+        root.classList.add("theme-light");
+      } else {
+        root.classList.remove("theme-light");
+      }
+    }
+  }, [theme]);
+
   return (
     <BrowserRouter>
-      <div className="bg-black min-h-screen">
+      <div className={`${isLight ? "bg-[#F7F3E9]" : "bg-black"} min-h-screen`}>
         <AnimatePresence mode="wait">
-          {isLoading && <Loader key="loader" />}
+          {isLoading && <Loader key="loader" theme={theme} />}
         <motion.div 
           key="main-content"
-          className="relative z-0 bg-black min-h-screen"
+          className={`relative z-0 ${isLight ? "bg-[#F7F3E9]" : "bg-black"} min-h-screen`}
           initial={{ opacity: 0 }}
           animate={{ opacity: isLoading ? 0 : 1 }}
           transition={{ 
@@ -44,25 +67,25 @@ const App = () => {
             delay: isLoading ? 0 : 0.1
           }}
           style={{ 
-            backgroundColor: '#000000',
+            backgroundColor: isLight ? '#F7F3E9' : '#000000',
             minHeight: '100vh'
           }}
         >
-        <Navbar />
-        <Hero />
-        <div className="bg-[#0e0e0e] relative z-0 px-4">
-          <About />
-          <Profile />
+        <Navbar theme={theme} onToggleTheme={() => setTheme(isLight ? "dark" : "light")} />
+        <Hero theme={theme} />
+        <div className={`${isLight ? "bg-[#F7F3E9]" : "bg-[#0e0e0e]"} relative z-0 px-4`}>
+          <About theme={theme} />
+          <Profile theme={theme} />
         </div>
-        <div className="bg-[#1a1a1a] relative z-0 px-4">
-          <Experience />
-          <Tech />
-          <Works />
+        <div className={`${isLight ? "bg-[#F7F3E9]" : "bg-[#1a1a1a]"} relative z-0 px-4`}>
+          <Experience theme={theme} />
+          <Tech theme={theme} />
+          <Works theme={theme} />
         </div>
-        <div className="bg-[#1a1a1a] relative z-0 px-4">
-          <Contact />
+        <div className={`${isLight ? "bg-[#F7F3E9]" : "bg-[#1a1a1a]"} relative z-0 px-4`}>
+          <Contact theme={theme} />
         </div>
-        <Footer />
+        <Footer theme={theme} />
         </motion.div>
         </AnimatePresence>
       </div>

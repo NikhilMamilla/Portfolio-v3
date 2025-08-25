@@ -32,7 +32,8 @@ const useGsap = (elementRef, animation, delay = 0) => {
   }, [elementRef, animation, delay]);
 };
 
-const ServiceCard = ({ index, title, icon }) => {
+const ServiceCard = ({ index, title, icon, theme = "dark" }) => {
+  const isLight = theme === "light";
   const cardRef = useRef(null);
   useGsap(cardRef, {
     from: { opacity: 0, y: 100, scale: 0.8 },
@@ -44,23 +45,24 @@ const ServiceCard = ({ index, title, icon }) => {
 
   return (
     <Tilt className="xs:w-[250px] w-full">
-      <div ref={cardRef} className="w-full bg-gradient-to-r from-[#4cdef5]/20 via-[#1b7bb3]/20 to-[#1e3a8a]/20 p-[1px] rounded-[20px] shadow-[0_0_20px_0_rgba(76,222,245,0.3)] hover:shadow-[0_0_30px_0_rgba(76,222,245,0.5)] transition-all duration-300">
-        <div className="bg-[#0e0e0e] rounded-[20px] py-5 px-12 min-h-[280px] flex justify-evenly items-center flex-col hover:bg-[#1a1a1a] transition-colors duration-300">
+      <div ref={cardRef} className={`w-full ${isLight ? "bg-gradient-to-r from-[#0FA3B1]/20 via-[#0FA3B1]/10 to-[#0FA3B1]/20 border border-[#0FA3B1]/20" : "bg-gradient-to-r from-[#4cdef5]/20 via-[#1b7bb3]/20 to-[#1e3a8a]/20 shadow-[0_0_20px_0_rgba(76,222,245,0.3)] hover:shadow-[0_0_30px_0_rgba(76,222,245,0.5)]"} p-[1px] rounded-[20px] transition-all duration-300`}>
+        <div className={`${isLight ? "bg-[#fff5f2] hover:bg-[#e2e8f0]" : "bg-[#0e0e0e] hover:bg-[#1a1a1a]"} rounded-[20px] py-5 px-12 min-h-[280px] flex justify-evenly items-center flex-col transition-colors duration-300`}>
           {isReactIcon ? (
-            <div className="w-16 h-16 text-[#4cdef5] hover:scale-110 transition-transform duration-300">
+            <div className={`w-16 h-16 ${isLight ? "text-[#0FA3B1]" : "text-[#4cdef5]"} hover:scale-110 transition-transform duration-300`}>
               {React.createElement(icon, { className: "w-full h-full" })}
             </div>
           ) : (
             <img src={icon} alt="web-development" className="w-16 h-16 object-contain hover:scale-110 transition-transform duration-300" />
           )}
-          <h3 className="text-white text-[20px] font-bold text-center hover:text-[#4cdef5] transition-colors duration-300">{title}</h3>
+          <h3 className={`text-[20px] font-bold text-center transition-colors duration-300 ${isLight ? "text-[#4a4a4a] hover:text-[#0FA3B1]" : "text-white hover:text-[#4cdef5]"}`}>{title}</h3>
         </div>
       </div>
     </Tilt>
   );
 };
 
-const About = () => {
+const About = ({ theme = "dark" }) => {
+  const isLight = theme === "light";
   const headingRef = useRef(null);
   const paragraphRef = useRef(null);
 
@@ -88,13 +90,22 @@ const About = () => {
             viewport={{ once: true, amount: 0.25 }}
             className="text-left"
           >
-            <p className={`${styles.sectionSubText}`}>Introduction</p>
-            <h2 className={`${styles.sectionHeadText}`}>Overview.</h2>
+            {isLight ? (
+              <>
+                <p className="sm:text-[18px] text-[14px] uppercase tracking-wider text-[#9CAF88]">Introduction</p>
+                <h2 className="font-black text-[#4a4a4a] md:text-[60px] sm:text-[50px] xs:text-[40px] text-[30px]">Overview.</h2>
+              </>
+            ) : (
+              <>
+                <p className={`${styles.sectionSubText}`}>Introduction</p>
+                <h2 className={`${styles.sectionHeadText}`}>Overview.</h2>
+              </>
+            )}
           </motion.div>
 
           <motion.p
             variants={fadeIn("", "", 0.1, 1)}
-            className='mt-4 text-neutral-300 text-[17px] max-w-3xl leading-[30px]'
+            className={`mt-4 text-[17px] max-w-3xl leading-[30px] ${isLight ? "text-[#4a4a4a]" : "text-neutral-300"}`}
           >
             I'm a Computer Science and Engineering student at BVRIT with a passion for AI/ML and full-stack development. 
             I specialize in React, Python, and modern web technologies, with experience in building AI-powered applications 
@@ -113,7 +124,7 @@ const About = () => {
             viewport={{ once: true, amount: 0.25 }}
             className="relative"
           >
-            <div className="w-80 h-80 rounded-full overflow-hidden border-4 border-[#4cdef5]/20 shadow-[0_0_30px_0_rgba(76,222,245,0.3)] hover:shadow-[0_0_50px_0_rgba(76,222,245,0.5)] transition-all duration-300">
+            <div className={`w-80 h-80 rounded-full overflow-hidden border-4 ${isLight ? "border-[#0FA3B1]/30" : "border-[#4cdef5]/20 shadow-[0_0_30px_0_rgba(76,222,245,0.3)] hover:shadow-[0_0_50px_0_rgba(76,222,245,0.5)]"} transition-all duration-300`}>
               <img
                 src={photo}
                 alt="Profile"
@@ -126,7 +137,7 @@ const About = () => {
 
       <div className='mt-20 flex flex-wrap gap-10'>
         {services.map((service, index) => (
-          <ServiceCard key={service.title} index={index} {...service} />
+          <ServiceCard key={service.title} index={index} theme={theme} {...service} />
         ))}
       </div>
     </>
