@@ -5,7 +5,7 @@ import Hyperspeed from "./Hyperspeed";
 import LightRays from "./LightRays";
 import SplashCursor from "./SplashCursor";
 import TextType from "./TextType";
-import resumePDF from "../assets/Nikhil_Mamilla_Resume.pdf";
+import resumePDF from "../assets/Nikhil_Mamilla.pdf";
 
 const Hero = ({ theme = "dark" }) => {
   const isLight = theme === "light";
@@ -152,7 +152,7 @@ const Hero = ({ theme = "dark" }) => {
                // Add your resume download logic here
                const link = document.createElement('a');
                link.href = resumePDF; // Using imported PDF
-               link.download = 'Nikhil_Mamilla_Resume.pdf';
+               link.download = 'Nikhil_Mamilla.pdf';
                link.click();
              }}
           >
