@@ -5,7 +5,8 @@ import Hyperspeed from "./Hyperspeed";
 import LightRays from "./LightRays";
 import SplashCursor from "./SplashCursor";
 import TextType from "./TextType";
-import resumePDF from "../assets/Nikhil_Mamilla.pdf";
+// Use public asset for stable filename download
+const resumePublicPath = "/Nikhil_Mamilla.pdf";
 
 const Hero = ({ theme = "dark" }) => {
   const isLight = theme === "light";
@@ -148,13 +149,14 @@ const Hero = ({ theme = "dark" }) => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className={`mt-6 ${isLight ? "py-3 px-8 rounded-full text-white bg-gradient-to-r from-[#0FA3B1] to-[#9CAF88]" : "animated-border py-3 px-8 outline-none text-white shadow-[0_0_20px_0_rgba(76,222,245,0.3)] hover:shadow-[0_0_30px_0_rgba(76,222,245,0.5)]"} font-bold transition-all duration-300 flex items-center gap-2`}
-                         onClick={() => {
-               // Add your resume download logic here
-               const link = document.createElement('a');
-               link.href = resumePDF; // Using imported PDF
-               link.download = 'Nikhil_Mamilla.pdf';
-               link.click();
-             }}
+            onClick={() => {
+              const link = document.createElement('a');
+              link.href = resumePublicPath; // served from public/ without hashing
+              link.setAttribute('download', 'Nikhil_Mamilla.pdf');
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            }}
           >
             <div className="relative flex items-center gap-2">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
