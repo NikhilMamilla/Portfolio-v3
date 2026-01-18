@@ -151,25 +151,31 @@ const SlideTabs = () => {
   const [cursor, setCursor] = useState({ left: 0, width: 0, opacity: 0 });
 
   useEffect(() => {
-    // Current active section detection logic can be added here
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 100;
-
-      for (const nav of navLinks) {
-        const section = document.getElementById(nav.id);
-        if (section) {
-          const top = section.offsetTop;
-          const height = section.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActive(nav.title);
-            break;
-          }
-        }
-      }
+    const observerOptions = {
+      root: null,
+      rootMargin: "-20% 0px -70% 0px",
+      threshold: 0,
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const handleIntersect = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const navItem = navLinks.find((link) => link.id === entry.target.id);
+          if (navItem) {
+            setActive(navItem.title);
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersect, observerOptions);
+
+    navLinks.forEach((link) => {
+      const element = document.getElementById(link.id);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
