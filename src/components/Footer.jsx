@@ -1,45 +1,107 @@
 import React from "react";
-import { FaInstagram, FaXTwitter, FaLinkedin } from "react-icons/fa6";
-import { styles } from "../styles";
+import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
+
+const sections = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "profile", label: "Journey" },
+  { id: "work", label: "Experience" },
+  { id: "tech", label: "Skills" },
+  { id: "works", label: "Projects" },
+  { id: "contact", label: "Contact" },
+];
+
+// smooth scroll helper
+const scrollToSection = (id) => {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: "smooth" });
+};
 
 const Footer = ({ theme = 'dark' }) => {
   const isLight = theme === 'light';
-  const socialLinks = [
-    { name: "Instagram", icon: "/assets/icons/instagram.svg" },
-    { name: "Twitter", icon: "/assets/icons/twitter.svg" },
-    { name: "LinkedIn", icon: "/assets/icons/linkedin.svg" },
-  ];
 
   return (
-    <div className={`w-full py-8 cursor-pointer px-4 ${styles.paddingX} min-h-[80px]`}>
-      <div className={`w-full flex flex-col md:flex-row justify-between items-center pt-6 border-t-[0.1px] ${isLight ? 'border-[#0FA3B1]/20' : 'border-[#4cdef5]/20'} gap-4`}>
-        <p className={`${isLight ? 'text-[#6b9080]' : 'text-neutral-400'} text-[18px] leading-[30px] text-center md:text-left`}>
-          Copyright © 2025 Nikhil Mamilla. All rights reserved.
-        </p>
+    <footer
+      className={`relative z-10 w-full transition-colors duration-300 ${isLight
+        ? "bg-[#FFFFFF] text-[#0D2440]"
+        : "bg-black text-zinc-500"
+        }`}
+    >
+      <div className="max-w-6xl mx-auto px-6">
 
-        <p className={`${isLight ? 'text-[#6b9080]' : 'text-neutral-400'} text-[18px] leading-[30px] text-center`}>
-          Created by {" "}
-          <span className={`${isLight ? 'text-[#0FA3B1] hover:text-[#9CAF88]' : 'text-[#4cdef5] hover:text-[#1b7bb3]'} transition-colors duration-300`}>
-            Nikhil Mamilla
-          </span>
-        </p>
+        {/* Created By (TOP) */}
+        <div className={`pt-12 pb-6 text-center text-xs tracking-[0.2em] uppercase font-medium ${isLight ? "text-[#2E5E99]" : "text-zinc-400"}`}>
+          Created by Nikhil Mamilla
+        </div>
 
-        <div className='flex flex-row md:mt-0 mt-2 gap-6 justify-center'>
-          <a href="https://instagram.com/nikhil.mamilla" target="_blank" rel="noopener noreferrer">
-            <FaInstagram className={`w-[21px] h-[21px] transition-colors duration-300 ${isLight ? 'text-[#0FA3B1] hover:text-[#9CAF88]' : 'text-[#4cdef5] hover:text-[#1b7bb3]'}`} />
-          </a>
-          <a href="https://github.com/NikhilMamilla" target="_blank" rel="noopener noreferrer">
-            <svg className={`w-[21px] h-[21px] transition-colors duration-300 ${isLight ? 'text-[#0FA3B1] hover:text-[#9CAF88]' : 'text-[#4cdef5] hover:text-[#1b7bb3]'}`} fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-            </svg>
-          </a>
-          <a href="https://www.linkedin.com/in/nikhil-mamilla-823922289" target="_blank" rel="noopener noreferrer">
-            <FaLinkedin className={`w-[21px] h-[21px] transition-colors duration-300 ${isLight ? 'text-[#0FA3B1] hover:text-[#9CAF88]' : 'text-[#4cdef5] hover:text-[#1b7bb3]'}`} />
-          </a>
+        {/* Divider */}
+        <div
+          className={`h-[1px] w-full ${isLight ? "bg-[#2E5E99]/20" : "bg-white/10"
+            }`}
+        />
+
+        {/* Footer Content */}
+        <div className="py-10 flex flex-col gap-8">
+
+          {/* Footer Navigation */}
+          <nav className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm font-medium">
+            {sections.map((section) => (
+              <button
+                key={section.id}
+                onClick={() => scrollToSection(section.id)}
+                className={`transition-colors duration-300 ${isLight
+                  ? "hover:text-[#2E5E99] text-[#0D2440]"
+                  : "hover:text-[#4cdef5] text-zinc-400"
+                  }`}
+              >
+                {section.label}
+              </button>
+            ))}
+          </nav>
+
+          {/* Social Links */}
+          <div className="flex justify-center gap-8 text-xl">
+            <a
+              href="https://github.com/NikhilMamilla"
+              target="_blank"
+              rel="noreferrer"
+              className={`transition-all duration-300 hover:scale-125 ${isLight ? "text-gray-900 hover:text-black" : "text-gray-400 hover:text-white"}`}
+              aria-label="GitHub"
+            >
+              <FaGithub />
+            </a>
+
+            <a
+              href="https://www.linkedin.com/in/nikhil-mamilla-823922289"
+              target="_blank"
+              rel="noreferrer"
+              className={`transition-all duration-300 hover:scale-125 text-[#0077b5] hover:text-[#006097]`}
+              aria-label="LinkedIn"
+            >
+              <FaLinkedin />
+            </a>
+
+            <a
+              href="https://instagram.com/nikhil.mamilla"
+              target="_blank"
+              rel="noreferrer"
+              className={`transition-all duration-300 hover:scale-125 text-[#E1306C] hover:text-[#C13584]`}
+              aria-label="Instagram"
+            >
+              <FaInstagram />
+            </a>
+          </div>
+
+          {/* Copyright */}
+          <div className={`text-center text-[10px] sm:text-xs tracking-wider ${isLight ? "text-[#0D2440]/70" : "text-zinc-600"}`}>
+            © {new Date().getFullYear()} Nikhil Mamilla. All rights reserved.
+          </div>
+
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 
 export default Footer;
+

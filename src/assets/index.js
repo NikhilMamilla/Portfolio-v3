@@ -1,8 +1,12 @@
 import github from "./github.png";
-import photo from './Photo.jpeg'
+import photo from './Photo.png'
 import Auracheck from './Auracheck.png'
 import BVRITConnect from './BVRITConnect.png'
 import CBB from './CBB.png'
+import cbb_leadership from './cbb_leadership.png'
+import gdg_leadership from './gdg_leadership.png'
+import gdg_logo_dark from './gdg-logo-dark.png'
+import src_leadership from './src_leadership.png'
 // Tech stack images (keep these if used in tech/languages)
 import css from "./tech/css.png";
 import mysql from './tech/mysql.png';
@@ -21,6 +25,7 @@ import c from './tech/c.png'
 import docker from './tech/docker.png'
 import postgresql from './tech/postgresql.png'
 import firebase from './tech/firebase.png'
+import render from './render.png'
 
 export {
     github,
@@ -28,6 +33,10 @@ export {
     Auracheck,
     BVRITConnect,
     CBB,
+    cbb_leadership,
+    gdg_leadership,
+    gdg_logo_dark,
+    src_leadership,
     css,
     mysql,
     aws,
@@ -45,4 +54,5 @@ export {
     docker,
     postgresql,
     firebase,
+    render,
 };
