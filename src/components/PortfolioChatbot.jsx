@@ -464,9 +464,6 @@ const PortfolioChatbot = () => {
                         ? 'bg-gray-900/90 text-cyan-200 border-cyan-400/40'
                         : 'bg-white/90 text-cyan-900 border-cyan-400/40'
                         }`} style={{ minWidth: '260px', maxWidth: '320px' }}>
-                        <span className="flex items-center justify-center w-8 h-8 rounded-full bg-cyan-600 text-white shadow-md">
-                            <FaRobot />
-                        </span>
                         <span>
                             <span className="font-semibold">I'm here to help!</span><br />Ask me about Nikhil's skills, projects, or experience.
                         </span>

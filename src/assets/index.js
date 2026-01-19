@@ -9,25 +9,6 @@ import gdg_logo_dark from './gdg-logo-dark.png'
 import src_leadership from './src_leadership.png'
 import gfg_dark from './gfg_dark.png'
 import gfg_light from './gfg_light.png'
-// Tech stack images (keep these if used in tech/languages)
-import css from "./tech/css.png";
-import mysql from './tech/mysql.png';
-import aws from './tech/aws.png';
-import git from "./tech/git.png";
-import html from "./tech/html.png";
-import javascript from "./tech/javascript.png";
-import mongodb from "./tech/mongodb.png";
-import nodejs from "./tech/nodejs.png";
-import reactjs from "./tech/reactjs.png";
-import tailwind from "./tech/tailwind.png";
-import threejs from "./tech/threejs.svg";
-import python from './tech/python.png'
-import java from './tech/java.png'
-import c from './tech/c.png'
-import docker from './tech/docker.png'
-import postgresql from './tech/postgresql.png'
-import firebase from './tech/firebase.png'
-import render from './render.png'
 
 export {
     github,
@@ -41,22 +22,4 @@ export {
     src_leadership,
     gfg_dark,
     gfg_light,
-    css,
-    mysql,
-    aws,
-    git,
-    html,
-    javascript,
-    mongodb,
-    nodejs,
-    reactjs,
-    tailwind,
-    threejs,
-    python,
-    java,
-    c,
-    docker,
-    postgresql,
-    firebase,
-    render,
 };
