@@ -53,7 +53,7 @@ const About = ({ theme = "dark" }) => {
           <p
             className={`mt-4 text-[17px] max-w-3xl leading-[30px] ${isLight ? "text-[#0D2440]" : "text-neutral-300"}`}
           >
-            I’m a Computer Science and Engineering student at BVRIT, passionate about AI/ML and full-stack development. I specialize in React, Python, and modern web technologies, building AI-powered applications and scalable web solutions. I’m also the GDG on Campus Organizer and President of CBB, where I lead tech communities, organize events, and collaborate with teams to build impactful initiatives. I’m a quick learner who loves working on innovative projects that solve real-world problems.
+            I’m a Computer Science and Engineering student at BVRIT, passionate about AI/ML and full-stack development. I specialize in React, Python, and modern web technologies, building AI-powered applications and scalable web solutions. I’m also a GeeksforGeeks Campus Mantri, GDG on Campus Organizer, and President of CBB, where I lead tech communities, organize events, and collaborate with teams to build impactful initiatives. I’m a quick learner who loves working on innovative projects that solve real-world problems.
           </p>
         </div>
 

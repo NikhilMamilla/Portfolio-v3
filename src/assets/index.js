@@ -7,6 +7,8 @@ import cbb_leadership from './cbb_leadership.png'
 import gdg_leadership from './gdg_leadership.png'
 import gdg_logo_dark from './gdg-logo-dark.png'
 import src_leadership from './src_leadership.png'
+import gfg_dark from './gfg_dark.png'
+import gfg_light from './gfg_light.png'
 // Tech stack images (keep these if used in tech/languages)
 import css from "./tech/css.png";
 import mysql from './tech/mysql.png';
@@ -37,6 +39,8 @@ export {
     gdg_leadership,
     gdg_logo_dark,
     src_leadership,
+    gfg_dark,
+    gfg_light,
     css,
     mysql,
     aws,

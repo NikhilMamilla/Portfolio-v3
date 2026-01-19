@@ -1,7 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { About, Contact, Experience, Hero, Navbar, Profile, Tech, Works, CallToAction } from "./components";
+import { About, Contact, Experience, Hero, Navbar, Profile, Tech, Works, CallToAction, PortfolioChatbot } from "./components";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
@@ -68,6 +68,7 @@ const AppContent = () => {
             <Contact theme={theme} />
           </div>
           <Footer theme={theme} />
+          <PortfolioChatbot />
         </motion.div>
       </AnimatePresence>
     </div>
@@ -76,7 +77,12 @@ const AppContent = () => {
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
+    >
       <ThemeProvider>
         <AppContent />
       </ThemeProvider>

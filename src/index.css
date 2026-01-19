@@ -88,7 +88,7 @@ h6 {
 }
 
 .animated-border>* {
-    padding: 12px 24px;
+    padding: 10px 20px;
     border-radius: 9999px;
     background: black;
     position: relative;
@@ -250,4 +250,26 @@ body {
 
 .shadow-premium {
     box-shadow: 0 10px 40px -10px rgba(76, 222, 245, 0.5);
+}
+
+/* Chatbot Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(76, 222, 245, 0.2);
+}
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }

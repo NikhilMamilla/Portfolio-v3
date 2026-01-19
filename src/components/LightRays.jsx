@@ -247,6 +247,8 @@ void main() {
         renderer.dpr = Math.min(window.devicePixelRatio, 2);
 
         const { clientWidth: wCSS, clientHeight: hCSS } = containerRef.current;
+        if (wCSS === 0 || hCSS === 0) return;
+
         renderer.setSize(wCSS, hCSS);
 
         const dpr = renderer.dpr;

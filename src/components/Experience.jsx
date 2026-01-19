@@ -5,7 +5,7 @@ import {
 } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
 import { FaLinkedin, FaInstagram } from "react-icons/fa";
-import { cbb_leadership, gdg_leadership, src_leadership, gdg_logo_dark } from "../assets";
+import { cbb_leadership, gdg_leadership, src_leadership, gdg_logo_dark, gfg_dark, gfg_light } from "../assets";
 
 import { styles } from "../styles";
 import { experiences } from "../constants";
@@ -128,6 +128,13 @@ const Experience = ({ theme = 'dark' }) => {
 
   const roles = [
     {
+      title: "Campus Mantri",
+      org: "GeeksforGeeks",
+      linkedin: "https://www.linkedin.com/company/geeksforgeeks/",
+      instagram: "https://www.instagram.com/geeks_for_geeks?igsh=Zmczd2ZtMGpoNWV0",
+      logo: gfg_dark
+    },
+    {
       title: "President",
       org: "Coding Brigade BVRIT",
       linkedin: "https://www.linkedin.com/company/coding-brigade-bvrit/",
@@ -178,7 +185,7 @@ const Experience = ({ theme = 'dark' }) => {
           <div className={`h-1.5 w-20 mt-4 rounded-full ${isLight ? "bg-[#2E5E99]" : "bg-[#4cdef5]"}`} />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {roles.map((role, index) => (
             <RoleCard key={index} {...role} isLight={isLight} />
           ))}

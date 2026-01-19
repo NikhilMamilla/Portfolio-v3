@@ -41,7 +41,7 @@ const Hyperspeed = ({ effectOptions = {
 } }) => {
   const hyperspeed = useRef(null);
   const appRef = useRef(null);
-  
+
   useEffect(() => {
     if (appRef.current) {
       appRef.current.dispose();
@@ -353,14 +353,18 @@ const Hyperspeed = ({ effectOptions = {
           antialias: false,
           alpha: true
         });
-        this.renderer.setSize(container.offsetWidth, container.offsetHeight, false);
+
+        const width = Math.max(1, container.offsetWidth);
+        const height = Math.max(1, container.offsetHeight);
+
+        this.renderer.setSize(width, height, false);
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.composer = new EffectComposer(this.renderer);
         container.append(this.renderer.domElement);
 
         this.camera = new THREE.PerspectiveCamera(
           options.fov,
-          container.offsetWidth / container.offsetHeight,
+          width / height,
           0.1,
           10000
         );
@@ -419,6 +423,7 @@ const Hyperspeed = ({ effectOptions = {
       onWindowResize() {
         const width = this.container.offsetWidth;
         const height = this.container.offsetHeight;
+        if (width === 0 || height === 0) return;
 
         this.renderer.setSize(width, height);
         this.camera.aspect = width / height;
@@ -566,7 +571,7 @@ const Hyperspeed = ({ effectOptions = {
 
       dispose() {
         this.disposed = true;
-        
+
         if (this.renderer) {
           this.renderer.dispose();
         }
@@ -576,7 +581,7 @@ const Hyperspeed = ({ effectOptions = {
         if (this.scene) {
           this.scene.clear();
         }
-        
+
         window.removeEventListener("resize", this.onWindowResize.bind(this));
         if (this.container) {
           this.container.removeEventListener("mousedown", this.onMouseDown);
@@ -1110,13 +1115,18 @@ const Hyperspeed = ({ effectOptions = {
     }
 
     (function () {
-      const container = document.getElementById('lights');
+      const container = hyperspeed.current;
+      if (!container) return;
       const options = { ...effectOptions };
       options.distortion = distortions[options.distortion];
 
       const myApp = new App(container, options);
       appRef.current = myApp;
-      myApp.loadAssets().then(myApp.init);
+      myApp.loadAssets().then(() => {
+        if (!appRef.current.disposed) {
+          myApp.init();
+        }
+      });
     })();
 
     return () => {

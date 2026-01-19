@@ -5,9 +5,10 @@ import Profile from "./Profile";
 import Tech from "./Tech";
 import Experience from "./Experience";
 import Works from "./Works";
-
 import Contact from "./Contact";
 import CallToAction from "./CallToAction";
+import PortfolioChatbot from "./PortfolioChatbot";
+
 export {
     Hero,
     Navbar,
@@ -18,4 +19,5 @@ export {
     Works,
     Contact,
     CallToAction,
+    PortfolioChatbot,
 };

@@ -56,13 +56,13 @@ const CallToAction = ({ theme = "dark" }) => {
                         </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-8 w-full max-w-[400px] sm:max-w-none">
+                    <div className="flex flex-col items-center sm:flex-row justify-center gap-4 sm:gap-8 w-full max-w-[400px] sm:max-w-none">
                         {/* Contact Me Button */}
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className={`font-bold transition-all duration-300 flex items-center justify-center gap-2 text-xs sm:text-sm md:text-base rounded-full sm:min-w-[170px] w-full ${isLight
-                                ? "py-3.5 px-7 text-white bg-[#2E5E99] border border-[#2E5E99]/50 shadow-[0_4px_15px_rgba(46,94,153,0.3)]"
+                            className={`font-bold transition-all duration-300 flex items-center justify-center gap-2 text-xs sm:text-sm md:text-base rounded-full px-8 sm:w-auto min-w-[200px] ${isLight
+                                ? "py-3 px-8 text-white bg-[#2E5E99] border border-[#2E5E99]/50 shadow-[0_4px_15px_rgba(46,94,153,0.3)]"
                                 : "animated-border outline-none text-white shadow-[0_0_20px_0_rgba(76,222,245,0.3)] hover:shadow-[0_0_30px_0_rgba(76,222,245,0.5)]"
                                 }`}
                             onClick={() => {
@@ -79,8 +79,8 @@ const CallToAction = ({ theme = "dark" }) => {
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className={`font-bold transition-all duration-300 flex items-center justify-center gap-2 text-xs sm:text-sm md:text-base rounded-full sm:min-w-[190px] w-full ${isLight
-                                ? "py-3.5 px-7 text-[#2E5E99] bg-transparent border border-[#2E5E99]"
+                            className={`font-bold transition-all duration-300 flex items-center justify-center gap-2 text-xs sm:text-sm md:text-base rounded-full px-8 sm:w-auto min-w-[200px] ${isLight
+                                ? "py-3 px-8 text-[#2E5E99] bg-transparent border border-[#2E5E99]"
                                 : "animated-border outline-none text-white shadow-[0_0_20px_0_rgba(76,222,245,0.3)] hover:shadow-[0_0_30px_0_rgba(76,222,245,0.5)]"
                                 }`}
                             onClick={() => {
