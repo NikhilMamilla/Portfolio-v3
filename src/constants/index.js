@@ -153,7 +153,7 @@ const projects = [{
     ],
     image: Auracheck,
     source_code_link: "https://github.com/NikhilMamilla/Auracheck",
-    live_demo_link: "https://auracheck-f408f.web.app/",
+    live_demo_link: "https://auracheck.vercel.app/",
 },
 {
     name: "BVRIT Alumni-Student Connect Platform",
