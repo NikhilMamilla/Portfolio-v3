@@ -177,7 +177,7 @@ const projects = [{
     ],
     image: BVRITConnect,
     source_code_link: "https://github.com/NikhilMamilla/BVRITAlumniConnect",
-    live_demo_link: "https://minor-project-64ad1.web.app/",
+    live_demo_link: "https://bvrit-connect.vercel.app/",
 },
 {
     name: "Coding Brigade BVRIT - Official Club Website",
