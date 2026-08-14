@@ -1,12 +1,14 @@
 import { BrowserRouter } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { About, Contact, Experience, Hero, Navbar, Profile, Tech, Works, CallToAction, PortfolioChatbot } from "./components";
+import { About, Contact, Experience, Navbar, Profile, Tech, Works, CallToAction } from "./components";
+import Hero from "./components/Hero";
+import PortfolioChatbot from "./components/PortfolioChatbot";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
 
-const AppContent = () => {
+const AppContent = memo(() => {
   const [isLoading, setIsLoading] = useState(true);
   const { theme } = useTheme();
   const isLight = theme === "light";
@@ -73,7 +75,7 @@ const AppContent = () => {
       </AnimatePresence>
     </div>
   );
-};
+});
 
 const App = () => {
   return (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Tilt } from "react-tilt";
 
 import { styles } from "../styles";
@@ -6,7 +6,7 @@ import { services } from "../constants";
 import { photo } from "../assets";
 import { SectionWrapper } from "../hoc";
 
-const ServiceCard = ({ title, icon, theme = "dark" }) => {
+const ServiceCard = memo(({ title, icon, theme = "dark" }) => {
   const isLight = theme === "light";
 
   // Check if icon is a React component (function) or an image path (string)
@@ -28,9 +28,9 @@ const ServiceCard = ({ title, icon, theme = "dark" }) => {
       </div>
     </Tilt>
   );
-};
+});
 
-const About = ({ theme = "dark" }) => {
+const About = memo(({ theme = "dark" }) => {
   const isLight = theme === "light";
 
   return (
@@ -78,7 +78,7 @@ const About = ({ theme = "dark" }) => {
       </div>
     </>
   );
-};
+});
 
 export default SectionWrapper(About, "about");
 

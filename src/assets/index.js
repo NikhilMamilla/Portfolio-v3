@@ -3,6 +3,10 @@ import photo from './Photo.png'
 import Auracheck from './Auracheck.png'
 import BVRITConnect from './BVRITConnect.png'
 import CBB from './CBB.png'
+import DestinAI from './DestinAI.png'
+import Studyguardian from './Studyguardian.png'
+import GDGoC from './GDGoC.png'
+import CodingLeague from './CodingLeague.png'
 import cbb_leadership from './cbb_leadership.png'
 import gdg_leadership from './gdg_leadership.png'
 import gdg_logo_dark from './gdg-logo-dark.png'
@@ -16,6 +20,10 @@ export {
     Auracheck,
     BVRITConnect,
     CBB,
+    DestinAI,
+    Studyguardian,
+    GDGoC,
+    CodingLeague,
     cbb_leadership,
     gdg_leadership,
     gdg_logo_dark,

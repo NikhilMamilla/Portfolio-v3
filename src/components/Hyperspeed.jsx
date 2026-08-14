@@ -358,7 +358,7 @@ const Hyperspeed = ({ effectOptions = {
         const height = Math.max(1, container.offsetHeight);
 
         this.renderer.setSize(width, height, false);
-        this.renderer.setPixelRatio(window.devicePixelRatio);
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
         this.composer = new EffectComposer(this.renderer);
         container.append(this.renderer.domElement);
 
@@ -438,7 +438,7 @@ const Hyperspeed = ({ effectOptions = {
           new BloomEffect({
             luminanceThreshold: 0.2,
             luminanceSmoothing: 0,
-            resolutionScale: 1
+            resolutionScale: 0.5
           })
         );
 

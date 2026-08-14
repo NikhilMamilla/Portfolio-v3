@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import {
   VerticalTimeline,
   VerticalTimelineElement,
@@ -11,9 +11,10 @@ import { styles } from "../styles";
 import { experiences } from "../constants";
 import { SectionWrapper } from "../hoc";
 
-const ExperienceCard = ({ experience, isLight }) => {
+const ExperienceCard = memo(({ experience, isLight }) => {
   return (
     <VerticalTimelineElement
+      visible={true}
       contentStyle={{
         background: isLight ? '#F0F6FC' : '#0e0e0e',
         color: isLight ? '#0D2440' : '#fff',
@@ -32,18 +33,29 @@ const ExperienceCard = ({ experience, isLight }) => {
         transition: 'background-color 0.4s ease, box-shadow 0.4s ease',
       }}
       icon={
-        <div className='flex justify-center items-center w-full h-full'>
-          <span className={`text-[10px] sm:text-xs font-bold ${isLight ? 'text-white' : 'text-black'}`}>
-            {experience.company_name.includes('Viswam') ? 'ViswamAI' : 'Pantech'}
+        <div className='flex justify-center items-center w-full h-full px-1 text-center'>
+          <span className={`text-[9px] sm:text-xs font-bold leading-tight ${isLight ? 'text-white' : 'text-black'}`}>
+            {experience.iconText || (
+              experience.company_name.includes('IISc') ? 'IISc' :
+              experience.company_name.includes('Tropoleap') ? 'Tropoleap' :
+              experience.company_name.includes('Viswam') ? 'ViswamAI' :
+              experience.company_name.includes('Pantech') ? 'Pantech' :
+              'Work'
+            )}
           </span>
         </div>
       }
     >
       <div className="text-left">
         <h3 className={`text-[24px] font-bold mb-2 ${isLight ? 'text-[#0D2440]' : 'text-white'}`}>{experience.title}</h3>
-        <p className={`text-[16px] font-semibold mb-4 ${isLight ? 'text-[#0D2440]' : 'text-neutral-300'}`}>
+        <p className={`text-[16px] font-semibold ${experience.subtitle ? 'mb-1' : 'mb-4'} ${isLight ? 'text-[#0D2440]' : 'text-neutral-300'}`}>
           {experience.company_name}
         </p>
+        {experience.subtitle && (
+          <p className={`text-[14px] font-medium mb-4 italic ${isLight ? 'text-[#2E5E99]' : 'text-[#4cdef5]'}`}>
+            {experience.subtitle}
+          </p>
+        )}
       </div>
 
       <ul className='mt-5 list-disc ml-5 space-y-3'>
@@ -58,9 +70,9 @@ const ExperienceCard = ({ experience, isLight }) => {
       </ul>
     </VerticalTimelineElement>
   );
-};
+});
 
-const RoleCard = ({ title, org, linkedin, instagram, isLight, logo }) => {
+const RoleCard = memo(({ title, org, linkedin, instagram, isLight, logo }) => {
   const isLargeLogo = org.includes("SRC") || org.includes("Student Research Cell") || org.includes("Google Developer Groups");
   const isGDGDark = !isLight && org.includes("Google Developer Groups");
 
@@ -121,9 +133,9 @@ const RoleCard = ({ title, org, linkedin, instagram, isLight, logo }) => {
       </div>
     </div>
   );
-};
+});
 
-const Experience = ({ theme = 'dark' }) => {
+const Experience = memo(({ theme = 'dark' }) => {
   const isLight = theme === 'light';
 
   const roles = [
@@ -193,7 +205,7 @@ const Experience = ({ theme = 'dark' }) => {
       </div>
     </>
   );
-};
+});
 
 export default SectionWrapper(Experience, "work");
 

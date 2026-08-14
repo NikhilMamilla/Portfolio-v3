@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { styles } from "../styles";
 import {
   programming,
@@ -9,7 +10,7 @@ import {
 } from "../constants";
 import { SectionWrapper } from "../hoc";
 
-const TechCard = ({ item, isLight }) => {
+const TechCard = memo(({ item, isLight }) => {
   const isDarkIcon =
     item.icon.includes('nextjs') ||
     item.icon.includes('express') ||
@@ -36,9 +37,9 @@ const TechCard = ({ item, isLight }) => {
       <p className={`text-center text-sm mt-2 transition-colors duration-300 ${isLight ? 'text-[#0D2440] group-hover:text-[#2E5E99]' : 'text-white group-hover:text-[#4cdef5]'}`}>{item.name}</p>
     </div>
   );
-};
+});
 
-const Tech = ({ theme = 'dark' }) => {
+const Tech = memo(({ theme = 'dark' }) => {
   const isLight = theme === 'light';
 
   const skillCategories = [
@@ -78,7 +79,7 @@ const Tech = ({ theme = 'dark' }) => {
       ))}
     </>
   );
-};
+});
 
 export default SectionWrapper(Tech, "tech");
 

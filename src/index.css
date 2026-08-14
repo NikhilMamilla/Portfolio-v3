@@ -21,7 +21,15 @@ body {
     transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-* {
+/* Scoped transitions — avoid applying to every element (causes scroll jank) */
+button,
+a,
+input,
+textarea,
+.animated-border,
+.animated-border-card,
+.tech-icon,
+.project-card > div {
     transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
@@ -250,6 +258,17 @@ body {
 
 .shadow-premium {
     box-shadow: 0 10px 40px -10px rgba(76, 222, 245, 0.5);
+}
+
+/* Promote WebGL canvas containers to their own compositor layer */
+.webgl-layer {
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+/* Keep sections pre-rendered without containment paint isolation */
+section {
+    position: relative;
 }
 
 /* Chatbot Custom Scrollbar */

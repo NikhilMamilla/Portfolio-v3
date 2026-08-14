@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, memo, useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
 import { styles } from "../styles";
 import Hyperspeed from "./Hyperspeed";
@@ -9,51 +9,69 @@ import TextType from "./TextType";
 // Use public asset for stable filename download
 const resumePublicPath = "/Nikhil_Mamilla.pdf";
 
-const Hero = ({ theme = "dark" }) => {
+const Hero = memo(({ theme = "dark" }) => {
   const isLight = theme === "light";
   const [isMobile, setIsMobile] = useState(false);
+  const heroRef = useRef(null);
+  const isHeroInView = useInView(heroRef, { margin: "400px 0px 400px 0px" });
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
     handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    // Use passive listener + debounce for resize
+    let resizeTimer;
+    const debouncedResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(handleResize, 150);
+    };
+    window.addEventListener("resize", debouncedResize, { passive: true });
+    return () => {
+      window.removeEventListener("resize", debouncedResize);
+      clearTimeout(resizeTimer);
+    };
   }, []);
 
   return (
-    <section className={`relative w-full min-h-screen mx-auto overflow-hidden flex flex-col`}>
+    <section ref={heroRef} className={`relative w-full min-h-screen mx-auto overflow-hidden flex flex-col`}>
       {/* LightRays overlay */}
-      <div className="absolute inset-0 pointer-events-none z-10" style={{ opacity: isLight ? 0.15 : 0.22 }}>
-        <LightRays
-          raysColor={isLight ? "#2E5E99" : "#4cdef5"}
-          raysOrigin="top-center"
-          raysSpeed={0.5}
-          lightSpread={0.7}
-          rayLength={1.5}
-          pulsating={false}
-          fadeDistance={1.2}
-          saturation={0.7}
-          followMouse={false}
-          mouseInfluence={0}
-          noiseAmount={0.05}
-          distortion={0.05}
-        />
-      </div>
-      {!isLight && (
-        <div className="absolute inset-0 pointer-events-none z-10" style={{ opacity: 0.45 }}>
+      {isHeroInView && (
+        <div className="absolute inset-0 pointer-events-none z-10 webgl-layer" style={{ opacity: isLight ? 0.15 : 0.22 }}>
+          <LightRays
+            raysColor={isLight ? "#2E5E99" : "#4cdef5"}
+            raysOrigin="top-center"
+            raysSpeed={0.5}
+            lightSpread={0.7}
+            rayLength={1.5}
+            pulsating={false}
+            fadeDistance={1.2}
+            saturation={0.7}
+            followMouse={false}
+            mouseInfluence={0}
+            noiseAmount={0.05}
+            distortion={0.05}
+          />
+        </div>
+      )}
+      {!isLight && isHeroInView && (
+        <div className="absolute inset-0 pointer-events-none z-10 webgl-layer" style={{ opacity: 0.35 }}>
           <SplashCursor
-            SPLAT_FORCE={800}
-            SPLAT_RADIUS={0.06}
-            DENSITY_DISSIPATION={6}
+            SIM_RESOLUTION={64}
+            DYE_RESOLUTION={512}
+            SPLAT_FORCE={600}
+            SPLAT_RADIUS={0.05}
+            DENSITY_DISSIPATION={8}
+            VELOCITY_DISSIPATION={3}
+            PRESSURE_ITERATIONS={10}
             COLOR_UPDATE_SPEED={3}
+            SHADING={false}
           />
         </div>
       )}
       {/* Hyperspeed effect - dark theme & desktop only */}
-      {!isMobile && (
-        <div className="absolute inset-0 z-0" style={{ transform: 'translateY(-15%)' }}>
+      {!isMobile && isHeroInView && (
+        <div className="absolute inset-0 z-0 webgl-layer" style={{ transform: 'translateZ(0) translateY(-15%)' }}>
           <Hyperspeed
             effectOptions={{
               distortion: 'turbulentDistortion',
@@ -65,8 +83,8 @@ const Hero = ({ theme = "dark" }) => {
               fovSpeedUp: 150,
               speedUp: 2,
               carLightsFade: 0.4,
-              totalSideLightSticks: 20,
-              lightPairsPerRoadWay: 40,
+              totalSideLightSticks: 12,
+              lightPairsPerRoadWay: 25,
               shoulderLinesWidthPercentage: 0.05,
               brokenLinesWidthPercentage: 0.1,
               brokenLinesLengthPercentage: 0.5,
@@ -83,11 +101,11 @@ const Hero = ({ theme = "dark" }) => {
                 roadColor: 0xffffff,
                 islandColor: 0xffffff,
                 background: 0xffffff,
-                shoulderLines: 0x1A3C6E, // Dark Blue (Clear Blue, not Black)
-                brokenLines: 0x2E5E99, // Primary Brand Blue
+                shoulderLines: 0x1A3C6E,
+                brokenLines: 0x2E5E99,
                 leftCars: [0x2E5E99, 0x1E4066, 0x7BA4D0],
                 rightCars: [0x7BA4D0, 0x2E5E99, 0x0D2440],
-                sticks: 0x1A3C6E, // Dark Blue
+                sticks: 0x1A3C6E,
               } : {
                 roadColor: 0x080808,
                 islandColor: 0x0a0a0a,
@@ -234,7 +252,7 @@ const Hero = ({ theme = "dark" }) => {
       {/* Remove the scroll-to-about button at the bottom */}
     </section>
   );
-};
+});
 
 export default Hero;
 

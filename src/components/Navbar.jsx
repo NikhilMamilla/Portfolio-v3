@@ -30,23 +30,35 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const current = window.scrollY;
-      if (mobileMenuOpen) return setShowNavbar(true);
+      if (mobileMenuOpen) {
+        if (!showNavbarRef.current) {
+          setShowNavbar(true);
+          showNavbarRef.current = true;
+        }
+        return;
+      }
 
       // Hide navbar when scrolling down, show when scrolling up
       if (current > lastScrollY && current > 100) {
-        setShowNavbar(false);
-        showNavbarRef.current = false;
+        if (showNavbarRef.current) {
+          setShowNavbar(false);
+          showNavbarRef.current = false;
+        }
       } else {
-        setShowNavbar(true);
-        showNavbarRef.current = true;
+        if (!showNavbarRef.current) {
+          setShowNavbar(true);
+          showNavbarRef.current = true;
+        }
       }
       setLastScrollY(current);
     };
 
     const handleMouseMove = () => {
-      // Always show navbar on mouse move
-      setShowNavbar(true);
-      showNavbarRef.current = true;
+      // Only trigger state update if value actually needs to change
+      if (!showNavbarRef.current) {
+        setShowNavbar(true);
+        showNavbarRef.current = true;
+      }
 
       // Clear existing timeout
       if (hideTimeoutRef.current) {
@@ -56,15 +68,15 @@ const Navbar = () => {
       // Set new timeout to hide navbar after 2.5s of inactivity
       // only if we are scrolled down (scrollY > 100)
       hideTimeoutRef.current = setTimeout(() => {
-        if (window.scrollY > 100 && !mobileMenuOpen) {
+        if (window.scrollY > 100 && !mobileMenuOpen && showNavbarRef.current) {
           setShowNavbar(false);
           showNavbarRef.current = false;
         }
       }, 2500);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -148,7 +160,17 @@ const SlideTabs = () => {
   const { theme, toggleTheme } = useTheme();
   const tabRefs = useRef([]);
   const [active, setActive] = useState("Home");
-  const [cursor, setCursor] = useState({ left: 0, width: 0, opacity: 0 });
+  const [cursor, setCursor] = useState({ left: 0, width: 0, opacity: 1 });
+
+  // Set the pill position after tabs render
+  useEffect(() => {
+    const titles = navLinks.map(n => n.title);
+    const index = titles.indexOf("Home");
+    const el = tabRefs.current[index];
+    if (el) {
+      setCursor({ left: el.offsetLeft, width: el.offsetWidth, opacity: 1 });
+    }
+  }, []);
 
   useEffect(() => {
     const observerOptions = {
@@ -211,7 +233,7 @@ const SlideTabs = () => {
               ? "text-white"
               : theme === "dark"
                 ? "text-zinc-400 hover:text-zinc-200"
-                : "text-gray-500 hover:text-gray-800"
+                : "text-gray-700 hover:text-gray-900"
               }`}
           >
             {nav.title}
